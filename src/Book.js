@@ -31,6 +31,7 @@ export function Book(title, year, publicationBy, authors) {
 
     Object.defineProperties(this, {
         'suggestedBooks': {
+            
             get() {
                 return this.authors.reduce((arr, {
                     books
@@ -41,7 +42,6 @@ export function Book(title, year, publicationBy, authors) {
                     return arr;
                 }, []).join(', ');
             }
-
         },
         'suggestedPublicators': {
             get() {

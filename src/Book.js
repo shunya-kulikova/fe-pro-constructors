@@ -24,34 +24,34 @@ export function Book(title, year, publicationBy, authors) {
     this.likedUsers = [];
     this.publicationBy = publicationBy;
 
-    publicationBy.myBooks.push(this);
-    authors.forEach(({
-        books
-    }) => books.push(this));
+    this.publicationBy.myBooks.push(this);
+
+    this.authors.forEach((author) => {
+        author.books.push(this);
+    });
 
     Object.defineProperties(this, {
         'suggestedBooks': {
-            
             get() {
-                return this.authors.reduce((arr, {
+                return this.authors.reduce((array, {
                     books
                 }) => {
                     books.forEach(({
                         title
-                    }) => this.title !== title && !arr.includes(title) ? arr.push(title) : arr);
-                    return arr;
+                    }) => this.title !== title && !array.includes(title) ? array.push(title) : array);
+                    return array;
                 }, []).join(', ');
             }
         },
         'suggestedPublicators': {
             get() {
-                return this.authors.reduce((arr, {
+                return this.authors.reduce((array, {
                     books
                 }) => {
                     books.forEach(({
                         publicationBy
-                    }) => this.publicationBy !== publicationBy && !arr.includes(publicationBy.name) ? arr.push(publicationBy.name) : arr);
-                    return arr;
+                    }) => this.publicationBy !== publicationBy && !array.includes(publicationBy.name) ? array.push(publicationBy.name) : array);
+                    return array;
                 }, []).join(', ');
             }
         }

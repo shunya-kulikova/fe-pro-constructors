@@ -20,6 +20,11 @@ export function User(name, date) {
     this.friends = [];
     this.likes = [];
 
+
+    function addRemFunc(obj, props, el) {
+        obj[props].includes(el) ? obj[props] = obj[props].filter((item) => item !== el) : obj[props].push(el);
+    }
+    
     this.addToFriends = function (user) {
         addRemFunc(this, 'friends', user);
         addRemFunc(user, 'friends', this);
@@ -28,6 +33,7 @@ export function User(name, date) {
         addRemFunc(this, 'likes', book);
         addRemFunc(book, 'likedUsers', this);
     };
+    
     this.removeFriend = this.addToFriends;
     this.unlikeBook = this.likeBook;
 
@@ -57,6 +63,3 @@ export function User(name, date) {
     });
 }
 
-function addRemFunc(obj, prop, elem) {
-    obj[prop].includes(elem) ? obj[prop] = obj[prop].filter((item) => item !== elem) : obj[prop].push(elem);
-}
